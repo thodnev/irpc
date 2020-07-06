@@ -1,0 +1,32 @@
+# encoding: utf-8
+#
+# Copyright (C) 2020 Tymofii Khodniev <thodnev@xinity.dev>
+#
+# This file is part of XRPC.
+#
+# XRPC is free software: you can redistribute it and/or modify it under the terms of the
+# GNU Lesser General Public License as published by the Free Software Foundation, either
+# version 3 of the License, or (at your option) any later version.
+#
+# XRPC is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along with XRPC.
+# If not, see <https://www.gnu.org/licenses/>.
+
+cflags = '-O2 -march=native'
+ldflags = '-O2 -flto'
+
+def make_ext(modname, pyxfilename):
+    from setuptools import Extension
+    ext = Extension(name = modname,
+        sources=[pyxfilename],
+        language='c',
+        extra_compile_args=cflags.split(' '),
+        extra_link_args=ldflags.split(' '))
+    ext.cython_directives = {'language_level': 3}
+    return ext
+
+def make_setup_args():
+    return dict(script_args=["--verbose"])

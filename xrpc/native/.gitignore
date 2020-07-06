@@ -1,0 +1,2 @@
+# Cythonized extensions are placed here, but actually we don't need them
+*.c

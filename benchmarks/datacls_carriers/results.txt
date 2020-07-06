@@ -1,0 +1,32 @@
+*** Results N_ITERS = 100000 N_REPEAT = 1000
+*** (Linux-5.4.43-1-MANJARO-x86_64-with-glibc2.2.5):
+CyTupleNoTypeFunc: 28.2597 ms (316.87 % speedup) = 3538604.64 op/s
+CyTupleNoTypeFuncExtArgs: 29.0778 ms (305.14 % speedup) = 3439051.38 op/s
+CyTupleFunc: 30.0682 ms (291.79 % speedup) = 3325774.52 op/s
+CyCandidateExtArgs: 30.5264 ms (285.91 % speedup) = 3275854.26 op/s
+CyCandidateTypedExtArgs: 30.8755 ms (281.55 % speedup) = 3238808.76 op/s
+CyCdefObjObjNoType: 32.4085 ms (263.50 % speedup) = 3085610.21 op/s
+CyListFunc: 33.0565 ms (256.37 % speedup) = 3025120.00 op/s
+CyCdefObjObj: 33.4037 ms (252.67 % speedup) = 2993680.99 op/s
+CyCdefIntObj: 35.3943 ms (232.84 % speedup) = 2825309.96 op/s
+CyCdefNord: 39.4103 ms (198.92 % speedup) = 2537405.39 op/s
+CyCdefPub: 46.9774 ms (150.77 % speedup) = 2128684.49 op/s
+CySlottedCls: 78.8398 ms (49.42 % speedup) = 1268394.26 op/s
+SlottedCls: 96.2520 ms (22.39 % speedup) = 1038939.38 op/s
+CyPureCls: 115.2976 ms (2.17 % speedup) = 867320.89 op/s
+PureCls: 117.8050 ms (*) = 848860.66 op/s
+
+
+*** Results (Linux-5.4.43-1-MANJARO-x86_64-with-glibc2.2.5):
+CyTupleNoTypeFunc: 2788.0459 ms (300.82 % speedup) = 3586741.58 op/s
+CyCdefObjObjNoType: 2952.1498 ms (278.54 % speedup) = 3387361.95 op/s
+CyCdefIntObj: 2971.7163 ms (276.05 % speedup) = 3365058.71 op/s
+CyCdefPub: 2988.5267 ms (273.94 % speedup) = 3346130.43 op/s
+CyTupleFunc: 3034.0184 ms (268.33 % speedup) = 3295958.97 op/s
+CyCdefNord: 3078.2205 ms (263.04 % speedup) = 3248630.15 op/s
+CyCdefObjObj: 3128.5673 ms (257.20 % speedup) = 3196351.21 op/s
+CyListFunc: 3346.1100 ms (233.98 % speedup) = 2988544.87 op/s
+CySlottedCls: 6997.0290 ms (59.71 % speedup) = 1429178.01 op/s
+SlottedCls: 8812.8243 ms (26.81 % speedup) = 1134710.02 op/s
+CyPureCls: 10775.4412 ms (3.71 % speedup) = 928036.25 op/s
+PureCls: 11175.1847 ms (*) = 894839.79 op/s

@@ -1,0 +1,16 @@
+# build requirements
+Cython
+setuptools
+wheel
+
+# test stuff
+pytest
+pytest-cov
+
+# linting tools
+flake8
+flake8-bugbear
+flake8-docstrings
+
+# formatters
+yapf
