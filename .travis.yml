@@ -1,0 +1,40 @@
+git:
+    # perform almost shallow clone
+    depth: 3
+    # don't mess the output
+    quiet: true
+
+language: python
+cache: pip
+jobs:
+  include:
+    - name: "Python 3.8 / Linux"
+      python: 3.8           # this works for Linux but is ignored on macOS or Windows
+      after_success:
+        - coveralls         # coverage is updated only for Linux builds
+    - name: "Python 3.8 / macOS"
+      os: osx
+      osx_image: xcode12    # macOS 10.15.5
+      language: shell       # 'language: python' is an error on Travis CI macOS
+      cache:
+          directories:
+            - $HOME/Library/Caches/Homebrew
+      before_cache:
+        - brew cleanup      # otherwise, the cache will grow indefinitely
+      before_install:
+        - brew install python@3.8 || brew upgrade python@3.8
+    # - name: "Python 3.8 / Windows"
+    #   os: windows           # Windows 10.0.17134 N/A Build 17134
+    #   language: shell       # 'language: python' is an error on Travis CI Windows
+    #   before_install:
+    #     - choco install llvm -y
+    #     - choco install make -y
+    #     - choco install python --version 3.8 -y
+    #     - ln -s /c/Python38/python /c/Python38/python3
+    #     - python3 -m pip install --upgrade pip
+    #   env: PATH="/c/Python38:/c/Python38/Scripts:/c/Program Files/LLVM/bin:$PATH"
+install:
+  - python3 -m pip install --upgrade pip setuptools
+  - python3 -m pip install coveralls
+  - python3 -m pip install -r requirements-dev.txt
+script: make build-dev test build-source build-wheel
