@@ -14,3 +14,7 @@ flake8-docstrings
 
 # formatters
 yapf
+
+# documentation
+sphinx >= 3.1.2
+sphinx-theme

@@ -17,7 +17,8 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 import os
-import pkg_resources
+# import pkg_resources
+import pathlib as pth
 import sys
 from setuptools import Extension, find_packages, setup
 from Cython.Build import cythonize
@@ -38,10 +39,10 @@ if not is_bdist:
     CFLAGS_DEFAULT += ' -march=native'
 
 # access through resource manager API
-long_description = pkg_resources.resource_string(__name__, 'README.rst').decode('utf-8')
+# long_description = pkg_resources.resource_string(__name__, 'README.rst').decode('utf-8')
 
-# project_dir = pth.Path(__file__).resolve().parent
-# long_description = project_dir.joinpath('README.rst').read_text()
+project_dir = pth.Path(__file__).resolve().parent
+long_description = project_dir.joinpath('README.rst').read_text()
 CFLAGS = os.environ.get('CFLAGS', CFLAGS_DEFAULT)
 LDFLAGS = os.environ.get('LDFLAGS', LDFLAGS_DEFAULT)
 use_line_trace = bool(int(os.environ.get('USE_LINE_TRACE', '0')))

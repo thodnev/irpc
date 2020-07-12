@@ -16,17 +16,57 @@ SlottedCls: 96.2520 ms (22.39 % speedup) = 1038939.38 op/s
 CyPureCls: 115.2976 ms (2.17 % speedup) = 867320.89 op/s
 PureCls: 117.8050 ms (*) = 848860.66 op/s
 
+*** Results N_ITERS=100000 N_REPEAT=1000
+*** (Windows-7-6.1.7601-SP1 MSVC):
+CyTupleNoTypeFunc: 7.7829 ms (288.56 % speedup) = 12848659.42 op/s
+CyTupleFunc: 8.2238 ms (267.73 % speedup) = 12159876.85 op/s
+CyTupleNoTypeFuncExtArgs: 8.5322 ms (254.44 % speedup) = 11720290.12 op/s
+CyCdefObjObjNoType: 8.9779 ms (236.84 % speedup) = 11138416.82 op/s
+CyCdefIntObj: 9.0610 ms (233.75 % speedup) = 11036279.14 op/s
+CyCdefPub: 9.1803 ms (229.41 % speedup) = 10892876.02 op/s
+CyCdefNord: 9.2722 ms (226.15 % speedup) = 10784981.21 op/s
+CyCdefObjObj: 9.5142 ms (217.85 % speedup) = 10510619.92 op/s
+CyCandidateTypedExtArgs: 9.5537 ms (216.54 % speedup) = 10467147.14 op/s
+CyListFunc: 9.6379 ms (213.77 % speedup) = 10375658.80 op/s
+CyCandidateExtArgs: 9.8735 ms (206.29 % speedup) = 10128155.19 op/s
+CySlottedCls: 20.7006 ms (46.09 % speedup) = 4830774.06 op/s
+CyPureCls: 25.2291 ms (19.87 % speedup) = 3963682.00 op/s
+SlottedCls: 25.9485 ms (16.54 % speedup) = 3853783.95 op/s
+PureCls: 30.2412 ms (*) = 3306752.13 op/s
 
-*** Results (Linux-5.4.43-1-MANJARO-x86_64-with-glibc2.2.5):
-CyTupleNoTypeFunc: 2788.0459 ms (300.82 % speedup) = 3586741.58 op/s
-CyCdefObjObjNoType: 2952.1498 ms (278.54 % speedup) = 3387361.95 op/s
-CyCdefIntObj: 2971.7163 ms (276.05 % speedup) = 3365058.71 op/s
-CyCdefPub: 2988.5267 ms (273.94 % speedup) = 3346130.43 op/s
-CyTupleFunc: 3034.0184 ms (268.33 % speedup) = 3295958.97 op/s
-CyCdefNord: 3078.2205 ms (263.04 % speedup) = 3248630.15 op/s
-CyCdefObjObj: 3128.5673 ms (257.20 % speedup) = 3196351.21 op/s
-CyListFunc: 3346.1100 ms (233.98 % speedup) = 2988544.87 op/s
-CySlottedCls: 6997.0290 ms (59.71 % speedup) = 1429178.01 op/s
-SlottedCls: 8812.8243 ms (26.81 % speedup) = 1134710.02 op/s
-CyPureCls: 10775.4412 ms (3.71 % speedup) = 928036.25 op/s
-PureCls: 11175.1847 ms (*) = 894839.79 op/s
+*** Results N_ITERS=100000 N_REPEAT=1000
+*** (Windows-7-6.1.7601-SP1 Clang -O3 generic):
+CyTupleNoTypeFunc: 8.1281 ms (271.92 % speedup) = 12303023.95 op/s
+CyTupleNoTypeFuncExtArgs: 8.3988 ms (259.93 % speedup) = 11906398.59 op/s
+CyTupleFunc: 8.5745 ms (252.55 % speedup) = 11662422.30 op/s
+CyCdefIntObj: 9.0774 ms (233.02 % speedup) = 11016359.34 op/s
+CyCdefObjObjNoType: 9.0791 ms (232.96 % speedup) = 11014303.90 op/s
+CyCdefPub: 9.2163 ms (228.00 % speedup) = 10850308.59 op/s
+CyCdefNord: 9.2600 ms (226.46 % speedup) = 10799122.76 op/s
+CyCandidateTypedExtArgs: 9.4329 ms (220.47 % speedup) = 10601200.98 op/s
+CyCdefObjObj: 9.6018 ms (214.83 % speedup) = 10414710.63 op/s
+CyCandidateExtArgs: 9.6503 ms (213.25 % speedup) = 10362409.89 op/s
+CyListFunc: 9.6684 ms (212.67 % speedup) = 10343012.67 op/s
+CySlottedCls: 20.4019 ms (48.17 % speedup) = 4901505.63 op/s
+CyPureCls: 24.6860 ms (22.46 % speedup) = 4050877.65 op/s
+SlottedCls: 26.5892 ms (13.69 % speedup) = 3760929.54 op/s
+PureCls: 30.2298 ms (*) = 3307991.23 op/s
+
+*** Results N_ITERS=100000 N_REPEAT=1000
+*** (Windows-7-6.1.7601-SP1 Clang -O3 march=native):
+CyTupleNoTypeFunc: 7.9514 ms (277.95 % speedup) = 12576420.57 op/s
+CyTupleNoTypeFuncExtArgs: 8.3113 ms (261.59 % speedup) = 12031860.57 op/s
+CyTupleFunc: 8.5472 ms (251.61 % speedup) = 11699790.01 op/s
+CyCdefIntObj: 9.1964 ms (226.79 % speedup) = 10873801.21 op/s
+CyCdefNord: 9.2068 ms (226.42 % speedup) = 10861588.17 op/s
+CyCdefObjObjNoType: 9.2551 ms (224.71 % speedup) = 10804827.76 op/s
+CyCdefPub: 9.3163 ms (222.58 % speedup) = 10733838.78 op/s
+CyCandidateTypedExtArgs: 9.3781 ms (220.46 % speedup) = 10663148.37 op/s
+CyCdefObjObj: 9.5768 ms (213.81 % speedup) = 10441941.21 op/s
+CyCandidateExtArgs: 9.6280 ms (212.14 % speedup) = 10386351.53 op/s
+CyListFunc: 9.8748 ms (204.34 % speedup) = 10126777.15 op/s
+CySlottedCls: 20.2981 ms (48.06 % speedup) = 4926573.61 op/s
+CyPureCls: 24.7018 ms (21.66 % speedup) = 4048282.55 op/s
+SlottedCls: 25.6312 ms (17.25 % speedup) = 3901491.79 op/s
+PureCls: 30.0526 ms (*) = 3327497.09 op/s
+
