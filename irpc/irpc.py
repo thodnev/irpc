@@ -2,17 +2,17 @@
 #
 # Copyright (C) 2020 Tymofii Khodniev <thodnev@xinity.dev>
 #
-# This file is part of XRPC.
+# This file is part of IRPC.
 #
-# XRPC is free software: you can redistribute it and/or modify it under the terms of the
+# IRPC is free software: you can redistribute it and/or modify it under the terms of the
 # GNU Lesser General Public License as published by the Free Software Foundation, either
 # version 3 of the License, or (at your option) any later version.
 #
-# XRPC is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# IRPC is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 # without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU Lesser General Public License for more details.
 #
-# You should have received a copy of the GNU Lesser General Public License along with XRPC.
+# You should have received a copy of the GNU Lesser General Public License along with IRPC.
 # If not, see <https://www.gnu.org/licenses/>.
 
 """..."""
@@ -38,7 +38,7 @@ _re_urlsafe_match = re.compile(r'[a-zA-Z0-9\-_.~]+').fullmatch
 
 def name_urlsafe(name):
     if not _re_urlsafe_match(name):
-        raise errors.XRPCBuildError(f'Name "{name}" does not match url-safe naming scheme')
+        raise errors.IRPCBuildError(f'Name "{name}" does not match url-safe naming scheme')
     return name
 
 
@@ -46,7 +46,7 @@ def name_urlsafe_lowercase(name):
     return name_urlsafe(name).lower()
 
 
-def xrpcmethod(wrapped_or_empty=None, *, name=None):
+def irpcmethod(wrapped_or_empty=None, *, name=None):
     """..."""
     if wrapped_or_empty is not None:
         # assume used as
@@ -57,7 +57,7 @@ def xrpcmethod(wrapped_or_empty=None, *, name=None):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             return func(*args, **kwargs)
-        wrapper.__xrpc_name__ = func.__name__
+        wrapper.__irpc_name__ = func.__name__
     else:
         # assume used as
         #   @method(name='something')
@@ -66,36 +66,36 @@ def xrpcmethod(wrapped_or_empty=None, *, name=None):
             @functools.wraps(func)
             def real_wrapper(*args, **kwargs):
                 return func(*args, **kwargs)
-            real_wrapper.__xrpc_name__ = name
+            real_wrapper.__irpc_name__ = name
             return real_wrapper
     return wrapper
 
 
-class XRPCMeta(type):
+class IRPCMeta(type):
     """..."""
 
     def __new__(mcls, clsname, clsbases, clsnamespace, *, name=None):
         """..."""
         # perform some checks for fast fail behavior
-        for fld in ['__xrpc_methods__', '__xrpc_name__']:
+        for fld in ['__irpc_methods__', '__irpc_name__']:
             if fld in clsnamespace:
-                raise errors.XRPCBuildError(f'{fld} field is built by {mcls.__qualname__}')
+                raise errors.IRPCBuildError(f'{fld} field is built by {mcls.__qualname__}')
 
         # collect all rpc methods and unwrap them
         rpcmethods = []     # list of tuples (rpcname, unwrapped_method)
         for key, val in clsnamespace.items():
             try:
-                rpcname = val.__xrpc_name__
+                rpcname = val.__irpc_name__
             except AttributeError:
                 continue
             # stop as soon as we reach first wrapper
-            # this implies @xrpcmethod is used as the outermost decorator
-            # method = inspect.unwrap(val, stop=lambda wrp: not hasattr(wrp, '__xrpc_name__'))
+            # this implies @irpcmethod is used as the outermost decorator
+            # method = inspect.unwrap(val, stop=lambda wrp: not hasattr(wrp, '__irpc_name__'))
             method = val.__wrapped__
             logger.debug(f'Unwrapping stage {val}, {method}, {id(val)}, {id(method)}')
-            if hasattr(method, '__xrpc_name__'):
-                raise errors.XRPCBuildError(
-                    f'Could not unwrap method "{key}", @xrpcmethod must be outermost decorator')
+            if hasattr(method, '__irpc_name__'):
+                raise errors.IRPCBuildError(
+                    f'Could not unwrap method "{key}", @irpcmethod must be outermost decorator')
 
             clsnamespace[key] = method      # set to unwrapped
             rpcmethods.append((rpcname, method))
@@ -109,7 +109,7 @@ class XRPCMeta(type):
         config = dict()
         for cls in reversed(mro):
             try:
-                config.update(cls.__xrpc_config__)
+                config.update(cls.__irpc_config__)
             except AttributeError:
                 continue
         logger.debug(f'Config after gathering {config}')
@@ -117,16 +117,16 @@ class XRPCMeta(type):
         # Get naming scheme func. It also implies config is not empty and provided somewhere
         naming_scheme = config.get('naming_scheme')
         if not callable(naming_scheme):
-            raise errors.XRPCBuildError('naming_scheme not callable, check __xrpc_config__')
+            raise errors.IRPCBuildError('naming_scheme not callable, check __irpc_config__')
 
         # Assign name to class
         #
         # !!!!! CHECK that it works via composition
         #
-        retcls.__xrpc_name__ = naming_scheme(name if name is not None else clsname)
+        retcls.__irpc_name__ = naming_scheme(name if name is not None else clsname)
 
         # Update class config dict
-        retcls.__xrpc_config__ = config
+        retcls.__irpc_config__ = config
 
         # Collect rpc methods declared inside class
         clsrpc = dict()
@@ -134,8 +134,8 @@ class XRPCMeta(type):
             print(f'processing method "{mtdname}"')
             mtdname = naming_scheme(mtdname)      # perform conversion according to naming scheme
             if mtdname in clsrpc:
-                raise errors.XRPCBuildError(
-                    f'Duplicate XRPC method name "{mtdname}" in class {retcls.__qualname__}')
+                raise errors.IRPCBuildError(
+                    f'Duplicate IRPC method name "{mtdname}" in class {retcls.__qualname__}')
             clsrpc[mtdname] = mtd
 
         logger.debug(f'Collected {len(clsrpc)} rpc methods from class {retcls.__qualname__}: '
@@ -156,17 +156,17 @@ class XRPCMeta(type):
     #     raise AttributeError(f'{cls} is not meant for instance creation')
 
     @classmethod
-    def xrpc_catchall_method(cls, method, *args, **kwargs):
+    def irpc_catchall_method(cls, method, *args, **kwargs):
         """
         This method is used as a catch-all and is called when the requested method
         was not found in the endpoint.
         Default raises a NotFound error resond to client.
         Overriding in subclasses allows to customize its behavior as needed.
         """
-        raise errors.XRPCNotFoundError(msg=method)
+        raise errors.IRPCNotFoundError(msg=method)
 
     @classmethod
-    def xrpc_handle(cls, method, args=(), kwargs=None, env=None):
+    def irpc_handle(cls, method, args=(), kwargs=None, env=None):
         kwargs = kwargs or {}
 
         ...
@@ -174,8 +174,8 @@ class XRPCMeta(type):
 
 # TODO: should there be an env passed as a first argument
 # Note: always use / for positional-only arguments
-class XRPC(metaclass=XRPCMeta):
-    __xrpc_config__ = {
+class IRPC(metaclass=IRPCMeta):
+    __irpc_config__ = {
         'naming_scheme': name_urlsafe_lowercase
     }
 
@@ -184,7 +184,7 @@ class XRPC(metaclass=XRPCMeta):
     pass
 
 
-class XRPCResponse:
+class IRPCResponse:
     __slots__ = ['err', 'ret']
 
     def __init__(self, ret=None, err=0):
@@ -196,13 +196,13 @@ class XRPCResponse:
 
 
 if __name__ == '__main__':
-    class Test(XRPC, name='123'):
-        @xrpcmethod
+    class Test(IRPC, name='123'):
+        @irpcmethod
         def test(self):
             print('ok')
             super().gg(123, 123)
 
-        @xrpcmethod(name='other')
+        @irpcmethod(name='other')
         def test2(self):
             print('ok2')
 

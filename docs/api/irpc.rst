@@ -1,4 +1,4 @@
-xrpc package
+irpc package
 ============
 
 Subpackages
@@ -7,23 +7,23 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   xrpc.native
+   irpc.native
 
 Submodules
 ----------
 
-xrpc.errors module
+irpc.errors module
 ------------------
 
-.. automodule:: xrpc.errors
+.. automodule:: irpc.errors
    :members:
    :undoc-members:
    :show-inheritance:
 
-xrpc.xrpc module
+irpc.irpc module
 ----------------
 
-.. automodule:: xrpc.xrpc
+.. automodule:: irpc.irpc
    :members:
    :undoc-members:
    :show-inheritance:
@@ -32,7 +32,7 @@ xrpc.xrpc module
 Module contents
 ---------------
 
-.. automodule:: xrpc
+.. automodule:: irpc
    :members:
    :undoc-members:
    :show-inheritance:

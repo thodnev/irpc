@@ -1,5 +1,5 @@
 # These variables could be set from the cmdline, and also from the env for the first two.
-PKGNAME		  ?= xrpc
+PKGNAME		  ?= irpc
 SPHINXOPTS    ?=
 DOCSRCDIR	  := docs
 DOCBUILDDIR   := $(DOCSRCDIR)/_build
@@ -14,7 +14,7 @@ doc-clean: $(DOCSRCDIR)
 	rm -rf "$(DOCSRCDIR)/api"
 
 doc-api: $(DOCSRCDIR)
-	sphinx-apidoc -T -o "$(DOCSRCDIR)/api" $(PKGNAME)
+	sphinx-apidoc -T -o "$(DOCSRCDIR)/api" $(PKGNAME) $(SPHINXOPTS)
 
 # Sphinx catch-all target: route all docs-... targets to Sphinx using the "make mode" option.
 doc-%: $(DOCSRCDIR)

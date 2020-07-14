@@ -3,28 +3,30 @@
 #
 # Copyright (C) 2020 Tymofii Khodniev <thodnev@xinity.dev>
 #
-# This file is part of XRPC.
+# This file is part of IRPC.
 #
-# XRPC is free software: you can redistribute it and/or modify it under the terms of the
+# IRPC is free software: you can redistribute it and/or modify it under the terms of the
 # GNU Lesser General Public License as published by the Free Software Foundation, either
 # version 3 of the License, or (at your option) any later version.
 #
-# XRPC is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# IRPC is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 # without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU Lesser General Public License for more details.
 #
-# You should have received a copy of the GNU Lesser General Public License along with XRPC.
+# You should have received a copy of the GNU Lesser General Public License along with IRPC.
 # If not, see <https://www.gnu.org/licenses/>.
 
 import os
-# import pkg_resources
 import pathlib as pth
 import sys
+import irpc
 from setuptools import Extension, find_packages, setup
 from Cython.Build import cythonize
 
+
 def warn(msg, *args, **kwargs):
     print('\nWarning:', msg, *args, end='\n\n', file=sys.stderr, **kwargs)
+
 
 # Dirty hack used to avoid including some stuff in binary distributions
 is_bdist = any(['bdist' in i for i in sys.argv[1:]])
@@ -61,8 +63,8 @@ if '-march=native' in CFLAGS.split(' '):
 
 extensions = [
     Extension(
-        name='xrpc.native.*',
-        sources=['xrpc/native/*.pyx'],
+        name='irpc.native.*',
+        sources=['irpc/native/*.pyx'],
         extra_compile_args=CFLAGS.split(' '),
         extra_link_args=LDFLAGS.split(' '),
         language='c'
@@ -84,8 +86,8 @@ setup(
     packages=find_packages(exclude=['tests']),
     package_data={'': ['*.pyx' if not is_bdist else '']},
     ext_modules=extensions,
-    name='xrpc',
-    version='0.0.0.dev1',   # follow semantic versioning (https://semver.org/)
+    name='irpc',
+    version=irpc.__version__,
     install_requires=[],
     author='thodnev',
     author_email='thodnev@xinity.dev',
@@ -95,8 +97,9 @@ setup(
     long_description=long_description,
     long_description_content_type='text/x-rst',   # text, text/x-rst or text/markdown
     keywords=['some', 'key', 'words'],
+    python_requires='>=3.8',
     # platforms=[],
-    url='https://github.com/thodnev/xrpc',
+    url='https://github.com/thodnev/irpc',
     # project_urls={
     #     "Bug Tracker": "https://bugs.example.com/HelloWorld/",
     #     "Documentation": "https://docs.example.com/HelloWorld/",

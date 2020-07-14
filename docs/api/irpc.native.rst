@@ -1,21 +1,21 @@
-xrpc.native package
+irpc.native package
 ===================
 
 Submodules
 ----------
 
-xrpc.native.carriers module
+irpc.native.carriers module
 ---------------------------
 
-.. automodule:: xrpc.native.carriers
+.. automodule:: irpc.native.carriers
    :members:
    :undoc-members:
    :show-inheritance:
 
-xrpc.native.carriers module
+irpc.native.carriers module
 ---------------------------
 
-.. automodule:: xrpc.native.carriers
+.. automodule:: irpc.native.carriers
    :members:
    :undoc-members:
    :show-inheritance:
@@ -24,7 +24,7 @@ xrpc.native.carriers module
 Module contents
 ---------------
 
-.. automodule:: xrpc.native
+.. automodule:: irpc.native
    :members:
    :undoc-members:
    :show-inheritance:

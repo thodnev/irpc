@@ -2,38 +2,38 @@
 #
 # Copyright (C) 2020 Tymofii Khodniev <thodnev@xinity.dev>
 #
-# This file is part of XRPC.
+# This file is part of IRPC.
 #
-# XRPC is free software: you can redistribute it and/or modify it under the terms of the
+# IRPC is free software: you can redistribute it and/or modify it under the terms of the
 # GNU Lesser General Public License as published by the Free Software Foundation, either
 # version 3 of the License, or (at your option) any later version.
 #
-# XRPC is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# IRPC is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 # without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU Lesser General Public License for more details.
 #
-# You should have received a copy of the GNU Lesser General Public License along with XRPC.
+# You should have received a copy of the GNU Lesser General Public License along with IRPC.
 # If not, see <https://www.gnu.org/licenses/>.
 
-"""Contains XRPC-related exceptions."""
+"""Contains IRPC-related exceptions."""
 
 
-class XRPCError(Exception):
-    """Common base class for all XRPC exceptions."""
-
-    pass
-
-
-class XRPCBuildError(XRPCError):
-    """Used for all exceptions related to XRPC declarations building process."""
+class IRPCError(Exception):
+    """Common base class for all IRPC exceptions."""
 
     pass
 
 
-class XRPCAppError(XRPCError):
+class IRPCBuildError(IRPCError):
+    """Used for all exceptions related to IRPC declarations building process."""
+
+    pass
+
+
+class IRPCAppError(IRPCError):
     """Unknown (generic) error.
 
-    Also serves as a common base for all XRPC Errors respond to clients.
+    Also serves as a common base for all IRPC Errors respond to clients.
 
     Attributes:
         errno (int): Error number
@@ -62,7 +62,7 @@ class XRPCAppError(XRPCError):
                 return
         except Exception:
             pass
-        raise XRPCError(f'Class "{cls.__qualname__}" does not provide valid errno')
+        raise IRPCError(f'Class "{cls.__qualname__}" does not provide valid errno')
 
     def __init__(self, msg=None, *args, errno=None, **kwargs):
         if errno is not None:
@@ -81,31 +81,31 @@ class XRPCAppError(XRPCError):
         return m
 
 
-class XRPCFormatError(XRPCAppError):
-    """Indicates XPRC request has wrong format."""
+class IRPCFormatError(IRPCAppError):
+    """Indicates IPRC request has wrong format."""
 
     errno = -2
 
 
-class XRPCNotFoundError(XRPCAppError):
-    """Indicates requested XRPC method or other resource was not found in endpoint."""
+class IRPCNotFoundError(IRPCAppError):
+    """Indicates requested IRPC method or other resource was not found in endpoint."""
 
     errno = -3
 
 
-class XRPCArgumentError(XRPCAppError):
-    """Indicates XRPC transport is probably ok, but the method was called with wrong arguments."""
+class IRPCArgumentError(IRPCAppError):
+    """Indicates IRPC transport is probably ok, but the method was called with wrong arguments."""
 
     errno = -4
 
 
-class XRPCExpiredError(XRPCAppError):
+class IRPCExpiredError(IRPCAppError):
     """Denotes some resource is already expired."""
 
     errno = -5
 
 
-class XRPCAuthError(XRPCAppError):
+class IRPCAuthError(IRPCAppError):
     """Common authentification error serving numerous purposes.
 
     We don't need to be to specific on errors since we don't want to

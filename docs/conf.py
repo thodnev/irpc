@@ -2,17 +2,17 @@
 #
 # Copyright (C) 2020 Tymofii Khodniev <thodnev@xinity.dev>
 #
-# This file is part of XRPC.
+# This file is part of IRPC.
 #
-# XRPC is free software: you can redistribute it and/or modify it under the terms of the
+# IRPC is free software: you can redistribute it and/or modify it under the terms of the
 # GNU Lesser General Public License as published by the Free Software Foundation, either
 # version 3 of the License, or (at your option) any later version.
 #
-# XRPC is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# IRPC is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 # without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU Lesser General Public License for more details.
 #
-# You should have received a copy of the GNU Lesser General Public License along with XRPC.
+# You should have received a copy of the GNU Lesser General Public License along with IRPC.
 # If not, see <https://www.gnu.org/licenses/>.
 
 
@@ -33,6 +33,7 @@ import os
 import sys
 curdir = os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, os.path.abspath(os.path.join(curdir, '..')))
+import irpc     # noqa: E402
 
 # is_rtd is whether we are on readthedocs, this line of code grabbed from docs.readthedocs.org
 is_rtd = os.environ.get('READTHEDOCS', '0').lower() in {'true', '1', 'y', 'yes'}
@@ -40,9 +41,11 @@ is_rtd = os.environ.get('READTHEDOCS', '0').lower() in {'true', '1', 'y', 'yes'}
 
 # -- Project information -----------------------------------------------------
 
-project = 'XRPC'
+project = 'IRPC'
 copyright = '2020, thodnev'
 author = 'thodnev'
+version = irpc.__version__
+release = version
 
 
 # -- General configuration ---------------------------------------------------

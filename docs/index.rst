@@ -1,6 +1,6 @@
-.. XRPC documentation root
+.. iRPC documentation root
 
-Welcome to XRPC's documentation!
+Welcome to iRPC's documentation!
 ================================
 
 .. include:: ../README.rst
@@ -9,7 +9,7 @@ Welcome to XRPC's documentation!
    :maxdepth: 3
    :caption: Contents:
 
-   API Documentation <api/xrpc>
+   API Documentation <api/irpc>
 
 Indices and tables
 ==================
